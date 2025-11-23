@@ -11,12 +11,20 @@ type ApiResponse = {
     data: any
 }
 
+type ApiError = {
+    id: number,
+    error: string
+}
+
 type ApiQueueStore = {
     queue: Job[],
     isProcessing: boolean,
     responses: ApiResponse[],
+    errors: ApiError[],
     addJob: (message: string) => void,
     processQueue: () => Promise<void>;
+    clearResponses: () => void;
+    clearErrors: () => void;
 }
 
 
@@ -24,6 +32,7 @@ export const useApiQueueStore = create<ApiQueueStore>((set, get) => ({
     queue: [],
     isProcessing: false,
     responses: [],
+    errors: [],
 
     addJob: (message: string) => {
         const job: Job = {
@@ -44,6 +53,8 @@ export const useApiQueueStore = create<ApiQueueStore>((set, get) => ({
         if(isProcessing || queue.length === 0) return;
 
         const job = queue[0];
+
+        set({ isProcessing: true });
         
         try {
             const res = await fetch("https://assignment-backend.jainshashwat528.workers.dev/api/v1/echo", {
@@ -54,25 +65,34 @@ export const useApiQueueStore = create<ApiQueueStore>((set, get) => ({
                 body: JSON.stringify({message: job.message})
             });
             
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            
             const data = await res.json();
 
             set((state) => ({
-                responses: [...state.responses, {id: job.id, data: data.echo}]
+                responses: [...state.responses, {id: job.id, data: data.echo || data.message}]
             }));
         } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
             set((state) => ({
-                responses: [...state.responses, {id: job.id, data: error}]
+                errors: [...state.errors, {id: job.id, error: errorMessage}]
             }));
         }
 
         set((state) => ({
             queue: state.queue.slice(1),
-            currentJob: null,
             isProcessing: false,
         }));
-
         get().processQueue();
+    },
 
+    clearResponses: () => {
+        set({ responses: [] });
+    },
 
+    clearErrors: () => {
+        set({ errors: [] });
     }
 }))
