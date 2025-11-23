@@ -1,6 +1,7 @@
-import { Callout } from "nextra/components"
 
-# UI API Queue System  
+
+# API Rate Limit + Frontend Queue System
+
 ### (Global Queue + Zustand-Based Queue)
 
 This project demonstrates two complementary approaches for creating a **UI-driven API Request Queue** in a front-end application:
