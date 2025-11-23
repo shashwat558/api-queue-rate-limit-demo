@@ -15,7 +15,7 @@ Both implementations aim to solve the same real-world problem:
 
 ---
 
-## 🚀 Why This Project Exists
+## Why This Project Exists
 
 Modern UIs can easily trigger the same API multiple times — especially with fast clicks, transitions, or automated operations.  
 This leads to:
@@ -29,7 +29,7 @@ This repo shows how to fix that using **two clean queueing strategies**.
 
 ---
 
-# ⚡ Features
+# Features
 
 - **FIFO request queue** (first in, first out)
 - **Serializable UI → API workflow**
@@ -42,7 +42,7 @@ This repo shows how to fix that using **two clean queueing strategies**.
 
 ---
 
-# 🧩 Architecture Overview
+# Architecture Overview
 
 ```txt
 ┌───────────────┐
