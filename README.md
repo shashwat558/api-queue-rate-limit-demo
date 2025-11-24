@@ -42,6 +42,53 @@ This repo shows how to fix that using **two clean queueing strategies**.
 
 ---
 
+## 🚀 How to Run
+
+Follow these steps to run the **frontend + queue system** locally.
+
+---
+
+### **1. Clone the repository**
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME
+cd YOUR_REPO_NAME
+```
+### Install dependencies
+```bash
+npm install
+```
+
+### Start the development server
+```bash
+npm run dev
+```
+
+Your app will now be available at:
+```bash
+http://localhost:3000
+```
+
+## Optional: Running Backend
+
+### 1. Install Wrangler
+```bash
+npm install -g wrangler
+```
+### 2, Login to Cloudflare
+```bash
+wrangler login
+```
+
+### 3. Start local Cloudflare dev server
+```bash
+wrangler dev
+```
+The backend will typically run at:
+```bash
+http://localhost:8787
+```
+
 # Architecture Overview
 
 ```txt
@@ -64,3 +111,6 @@ This repo shows how to fix that using **two clean queueing strategies**.
 │ - fetch client             │   │ - fetch client               │
 │ - error handling           │   │ - retries                    │
 └────────────────────────────┘   └──────────────────────────────┘
+
+
+
