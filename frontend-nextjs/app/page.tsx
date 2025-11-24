@@ -1,7 +1,7 @@
 "use client";
 import { apiQueue, Job } from "@/lib/apiQueue";
-import { useApiQueueStore } from "@/store/apiQueueStore";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface ApiResponse {
   id?: number;
@@ -52,14 +52,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1>Implementation without Zustand</h1>
-        <div className="mb-6 flex justify-center">
-          <button 
-            className="px-6 py-3 text-lg bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer shadow-md" 
-            onClick={addJob}
-          >
-            Send Request
-          </button>
+        <div className="mb-6 flex flex-col items-center gap-4">
+          <h1 className="text-3xl font-bold text-gray-800">Implementation without Zustand</h1>
+          <div className="flex gap-4">
+            <button 
+              className="px-6 py-3 text-lg bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer shadow-md" 
+              onClick={addJob}
+            >
+              Send Request
+            </button>
+            <Link 
+              href="/zustand-implementation"
+              className="px-6 py-3 text-lg bg-purple-600 text-white rounded-md hover:bg-purple-700 transition cursor-pointer shadow-md"
+            >
+              View Zustand Implementation
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
